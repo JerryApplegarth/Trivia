@@ -3,13 +3,14 @@ package com.applecompose.trivia
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.applecompose.trivia.ui.theme.TriviaTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,7 +23,7 @@ class MainActivity : ComponentActivity() {
 					modifier = Modifier.fillMaxSize(),
 					color = MaterialTheme.colors.background
 				) {
-					Greeting("Android")
+					MainScreen()
 				}
 			}
 		}
@@ -30,14 +31,32 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
-	Text(text = "Hello $name!")
-}
+fun MainScreen() {
+	Column(
+				modifier = Modifier
+					.fillMaxSize(),
+				horizontalAlignment = Alignment.CenterHorizontally,
+				verticalArrangement = Arrangement.Top
+				)
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-	TriviaTheme {
-		Greeting("Android")
-	}
+			{
+				TopAppBar(modifier = Modifier.fillMaxWidth()) {
+					Text(text = "Top App Bar",
+						fontSize = 16.sp
+						)
+
+				}
+				Text(
+					text = "Gold Prices",
+					fontSize = 24.sp,
+					)
+				Spacer(modifier = Modifier.height(16.dp))
+				Divider(thickness = 2.dp, color = MaterialTheme.colors.primaryVariant)
+				Button(
+					onClick = {  }) {
+					Text(text = "Save")
+
+				}
+
+			}
 }
