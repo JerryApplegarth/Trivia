@@ -1,18 +1,20 @@
 package com.applecompose.trivia
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.applecompose.trivia.presentation.screens.QuestionsViewModel
 import com.applecompose.trivia.ui.theme.TriviaTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -23,7 +25,7 @@ class MainActivity : ComponentActivity() {
 					modifier = Modifier.fillMaxSize(),
 					color = MaterialTheme.colors.background
 				) {
-					MainScreen()
+					TriviaHome()
 				}
 			}
 		}
@@ -31,32 +33,15 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainScreen() {
-	Column(
-				modifier = Modifier
-					.fillMaxSize(),
-				horizontalAlignment = Alignment.CenterHorizontally,
-				verticalArrangement = Arrangement.Top
-				)
+fun TriviaHome(viewModel: QuestionsViewModel = hiltViewModel()) {
+	Questions(viewModel)
 
-			{
-				TopAppBar(modifier = Modifier.fillMaxWidth()) {
-					Text(text = "Top App Bar",
-						fontSize = 16.sp
-						)
+}
 
-				}
-				Text(
-					text = "Gold Prices",
-					fontSize = 24.sp,
-					)
-				Spacer(modifier = Modifier.height(16.dp))
-				Divider(thickness = 2.dp, color = MaterialTheme.colors.primaryVariant)
-				Button(
-					onClick = {  }) {
-					Text(text = "Save")
+@Composable
+fun Questions(viewModel: QuestionsViewModel) {
 
-				}
+	val questions = viewModel.data.value.data?.toMutableList()
 
-			}
+	Log.d("SIZE", "Questions: ${questions?.size}")
 }
